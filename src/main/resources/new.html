@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bank Deposit</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Bank Deposit</h1>
+    
+    <form id="depositForm">
+        <label for="bankName">Bank:</label>
+        <select id="bankName" name="bankName">
+            <option value="Ziraat Bank">Ziraat Bank</option>
+            <option value="Garanti Bank">Garanti B9ank</option>
+            
+            
+              
+        </select>
+        
+        <label for="userName">User Name:</label>
+        <input type="text" id="userName" name="userName">
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        
+        <label for="amount">Amount:</label>
+        <input type="text" id="amount" name="amount">
+        
+        <button type="submit">Deposit</button>
+    </form>
+    
+  <script>
+        $(document).ready(function() {
+            $('#depositForm').submit(function(event) {
+                event.preventDefault(); // Prevent the form from submitting normally
+                
+                // Get the form values
+                var bankName = $('#bankName').val();
+                var userName = $('#userName').val();
+                var email = $('#email').val();
+                var amount = $('#amount').val();
+                
+                
+                var requestData = {
+                    bankName: bankName,
+                    userName: userName,
+                    email: email,
+                    amount: amount
+                };
+                
+                
+                $.ajax({
+                    url: '/deposit',
+                    type: 'POST',
+                    data: JSON.stringify(requestData),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        console.log(response); // Handle the success response
+                    },
+                    error: function(error) {
+                        console.error(error); // Handle the error response
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
